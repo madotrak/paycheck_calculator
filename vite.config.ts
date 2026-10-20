@@ -171,6 +171,9 @@ export default defineConfig(({ command, isPreview }) => ({
       ? [
           nitro({
             preset: "vercel",
+            // The repo-root index.html is the GitHub Pages redirect. Do not
+            // use it as the app document; TanStack Start renders that.
+            renderer: false,
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
