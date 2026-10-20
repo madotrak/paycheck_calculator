@@ -646,3 +646,147 @@ legend {
     transition: none;
   }
 }
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.25rem;
+}
+
+.site-nav a {
+  display: inline-flex;
+  height: 2.75rem;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-nav a[aria-current="page"] {
+  background: var(--inset);
+  color: var(--ink);
+}
+
+.page {
+  width: 100%;
+  max-width: 48rem;
+}
+
+.page h1 {
+  font-family: var(--display-font);
+  font-size: var(--title);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  margin-top: 0.75rem;
+  max-width: 65ch;
+  color: var(--muted);
+}
+
+.article {
+  display: flex;
+  max-width: 65ch;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.article h2 {
+  margin: 0.5rem 0 0;
+  font-family: var(--display-font);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.article ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.article li + li {
+  margin-top: 0.25rem;
+}
+
+.article a,
+.site-footer a {
+  color: inherit;
+  font-weight: 500;
+  text-underline-offset: 2px;
+}
+
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.post-list,
+.faq-list,
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.post,
+.faq-list details,
+.contact-form {
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: var(--card);
+  padding: 1rem;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.faq-list p,
+.post p {
+  color: var(--muted);
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--paper);
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  color: var(--ink);
+}
+
+.contact-form button {
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #f4f6f7;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+

@@ -9,6 +9,7 @@ import {
   type PayResult,
 } from "@/lib/paycheck/calculate";
 import { AdsenseBanner } from "@/components/adsense-banner";
+import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { statesAlphabetical, type FilingStatus } from "@/lib/paycheck/tax";
 
 const STORAGE_KEY = "takehome-inputs-v1";
@@ -158,6 +159,7 @@ export function PaycheckApp() {
     <main className="min-h-screen bg-paper pb-28 text-ink lg:pb-10">
       <AdsenseBanner />
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-10">
+        <SiteNav />
         <header className="flex items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-muted">Paycheck calculator</p>
@@ -400,6 +402,7 @@ export function PaycheckApp() {
           all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax credits,
           itemizing, and local taxes unless you add a rate. Not tax or payroll advice.
         </p>
+        <SiteFooter />
       </div>
 
       <div className="pay-dock fixed inset-x-0 bottom-0 z-10 border-t border-line bg-card px-4 pt-3 lg:hidden">

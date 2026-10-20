@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact · Takehome</title>
+    <meta name="description" content="How to reach the publisher of the Takehome paycheck calculator." />
+    <meta name="theme-color" content="#f2f1ee" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <aside class="ad" aria-label="Advertisement">
+        <div class="ad-inner">
+          <p class="ad-label">Advertisement</p>
+          <div class="ad-slot">AdSense banner</div>
+        </div>
+      </aside>
+      <div class="wrap">
+        <nav class="site-nav" aria-label="Site">
+          <a href="index.html">Calculator</a>
+          <a href="about.html">About</a>
+          <a href="blog/index.html">Blog</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html" aria-current="page">Contact</a>
+        </nav>
+        <header class="page">
+          <p class="eyebrow">Contact</p>
+          <h1>Reach the publisher</h1>
+          <p class="lede">MadoTrak publishes Takehome from Philadelphia, Pennsylvania. Use this page for a correction, a missing tax, or a question about the estimate.</p>
+        </header>
+        <article class="article">
+          <p>There is no support inbox built into the calculator. Write through GitHub, where the project lives, so the note is not stuck in this browser.</p>
+          <form class="contact-form" id="contact-form">
+            <label>Name <input id="contact-name" name="name" autocomplete="name" /></label>
+            <label>Email <input id="contact-email" name="email" type="email" autocomplete="email" /></label>
+            <label>Message <textarea id="contact-message" name="message" rows="5" required></textarea></label>
+            <button type="submit">Prepare message</button>
+            <p id="contact-ready" hidden></p>
+          </form>
+          <p>Publisher profile: <a href="https://github.com/madotrak">https://github.com/madotrak</a></p>
+        </article>
+        <script>
+          document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var name = document.getElementById("contact-name").value.trim();
+            var email = document.getElementById("contact-email").value.trim();
+            var message = document.getElementById("contact-message").value.trim();
+            if (!message) return;
+            var lines = [];
+            if (name) lines.push("Name: " + name);
+            if (email) lines.push("Email: " + email);
+            lines.push("");
+            lines.push(message);
+            var href = "https://github.com/madotrak/paycheck_calculator/issues/new" + "?title=" + encodeURIComponent("Takehome calculator") + "&body=" + encodeURIComponent(lines.join("\n"));
+            var ready = document.getElementById("contact-ready");
+            ready.hidden = false;
+            ready.replaceChildren();
+            ready.append("Your note is ready. ");
+            var link = document.createElement("a");
+            link.href = href;
+            link.textContent = "Open it as a GitHub issue";
+            ready.append(link);
+            ready.append(" so it reaches MadoTrak. Nothing is stored on a server by this form.");
+          });
+        </script>
+        <footer class="site-footer">
+          <nav aria-label="Footer">
+            <a href="about.html">About</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+            <a href="blog/index.html">Blog</a>
+          </nav>
+          <p>Estimates for a W-2 paycheck. Not tax or payroll advice.</p>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>
