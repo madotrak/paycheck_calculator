@@ -122,25 +122,15 @@ p {
 }
 
 .ad-slot {
-  display: flex;
+  display: block;
   width: 100%;
   max-width: 48rem;
-  height: 4rem;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  background: var(--inset);
-  color: var(--muted);
-  font-size: 0.875rem;
-  font-weight: 500;
+  min-height: 6rem;
 }
 
 .ad-slot .adsbygoogle {
   display: block;
   width: 100%;
-  height: 100%;
 }
 
 .wrap {
@@ -586,10 +576,6 @@ legend {
   .wrap {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-
-  .ad-slot {
-    height: 6rem;
   }
 
   .wrap {

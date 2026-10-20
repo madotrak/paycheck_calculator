@@ -35,10 +35,8 @@ function PrivacyPage() {
       </p>
       <h2 className="font-display text-xl font-semibold tracking-tight">Advertising</h2>
       <p>
-        Pages may show a banner reserved for Google AdSense. Until a publisher ID and ad unit are connected, that space is an empty
-        placeholder and does not load an ad. If ads are turned on, Google and its partners may use cookies to serve and measure ads,
-        including ads based on your visits to this and other sites. That activity is governed by Google’s policies, not by this
-        calculator’s math.
+        Pages include a Google AdSense unit. Google and its partners may use cookies to serve and measure ads, including ads based on
+        your visits to this and other sites. That activity is governed by Google’s policies, not by this calculator’s math.
       </p>
       <p>
         You can read how Google uses data from sites that use its services at{" "}

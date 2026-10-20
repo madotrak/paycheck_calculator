@@ -64,13 +64,17 @@ function page(options: {
     <meta name="theme-color" content="#f2f1ee" />
     <link rel="icon" href="${depth}favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="${depth}styles.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8986347839279623" crossorigin="anonymous"></script>
   </head>
   <body>
     <main>
       <aside class="ad" aria-label="Advertisement">
         <div class="ad-inner">
           <p class="ad-label">Advertisement</p>
-          <div class="ad-slot">AdSense banner</div>
+          <div class="ad-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8986347839279623" data-ad-slot="9964661445" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
         </div>
       </aside>
       <div class="wrap">
@@ -135,7 +139,7 @@ const privacy = page({
           <h2>What we do not collect</h2>
           <p>The calculator does not ask for your name, Social Security number, bank account, employer, or address. Do not type those into the wage or notes fields. There is no sale of personal information.</p>
           <h2>Advertising</h2>
-          <p>Pages may show a banner reserved for Google AdSense. Until a publisher ID and ad unit are connected, that space is an empty placeholder and does not load an ad. If ads are turned on, Google and its partners may use cookies to serve and measure ads, including ads based on your visits to this and other sites.</p>
+          <p>Pages include a Google AdSense unit. Google and its partners may use cookies to serve and measure ads, including ads based on your visits to this and other sites.</p>
           <p>You can read how Google uses data from sites that use its services at <a href="https://policies.google.com/technologies/ads">Google’s advertising policy</a>. Ad personalization can be changed at <a href="https://adssettings.google.com">Google ad settings</a>. You can also block third-party cookies in your browser.</p>
           <h2>Children</h2>
           <p>The calculator is written for adults looking at wages. It is not directed at children under 13, and it does not knowingly collect their information.</p>

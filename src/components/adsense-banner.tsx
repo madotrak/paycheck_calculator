@@ -37,18 +37,18 @@ export function AdsenseBanner() {
     <aside aria-label="Advertisement" className="border-b border-line bg-card">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-3 sm:px-6">
         <p className="mb-1.5 text-xs font-medium text-faint">Advertisement</p>
-        <div className="relative h-16 w-full max-w-3xl overflow-hidden rounded-lg border border-line bg-inset sm:h-24">
+        <div className="w-full max-w-3xl">
           {enabled ? (
             <ins
               className="adsbygoogle"
-              style={{ display: "block", width: "100%", height: "100%" }}
+              style={{ display: "block" }}
               data-ad-client={client}
               data-ad-slot={slot}
-              data-ad-format="horizontal"
+              data-ad-format="auto"
               data-full-width-responsive="true"
             />
           ) : (
-            <div className="flex h-full flex-col items-center justify-center">
+            <div className="flex h-16 items-center justify-center rounded-lg border border-line bg-inset sm:h-24">
               <p className="text-sm font-medium text-muted">AdSense banner</p>
             </div>
           )}

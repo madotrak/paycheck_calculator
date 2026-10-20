@@ -1,6 +1,6 @@
 /* Takehome — static paycheck calculator. Paste AdSense ids to replace the reserved banner. */
-var ADSENSE_CLIENT = "";
-var ADSENSE_SLOT = "";
+var ADSENSE_CLIENT = "ca-pub-8986347839279623";
+var ADSENSE_SLOT = "9964661445";
 
 var STANDARD_DEDUCTION = { single: 16100, mfs: 16100, mfj: 32200, hoh: 24150 };
 var FEDERAL_BRACKETS = {
@@ -326,9 +326,10 @@ function boot() {
     slotEl.textContent = "";
     var unit = document.createElement("ins");
     unit.className = "adsbygoogle";
+    unit.style.display = "block";
     unit.setAttribute("data-ad-client", client);
     unit.setAttribute("data-ad-slot", slot);
-    unit.setAttribute("data-ad-format", "horizontal");
+    unit.setAttribute("data-ad-format", "auto");
     unit.setAttribute("data-full-width-responsive", "true");
     slotEl.appendChild(unit);
     var script = document.createElement("script");

@@ -1,9 +1,8 @@
 /**
- * AdSense leaderboard. Paste the publisher id and ad unit slot from
- * AdSense → Ads → By ad unit. Leave both blank to keep the reserved banner.
+ * AdSense paycheck banner. Publisher id and slot are public; they ship in the page.
  */
-export const ADSENSE_CLIENT = "";
-export const ADSENSE_SLOT = "";
+export const ADSENSE_CLIENT = "ca-pub-8986347839279623";
+export const ADSENSE_SLOT = "9964661445";
 
 export function adsenseConfig(): { client: string; slot: string; enabled: boolean } {
   const client = ADSENSE_CLIENT.trim();
