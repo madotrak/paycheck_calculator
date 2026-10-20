@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Takehome</title>
+    <meta
+      name="description"
+      content="Estimate take-home pay from an hourly wage, hours, overtime, and 2026 federal, state, and payroll taxes."
+    />
+    <meta name="theme-color" content="#f2f1ee" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <aside class="ad" aria-label="Advertisement">
+        <div class="ad-inner">
+          <p class="ad-label">Advertisement</p>
+          <div id="ad-slot" class="ad-slot">AdSense banner</div>
+        </div>
+      </aside>
+
+      <div class="wrap">
+        <header class="mast">
+          <div>
+            <p class="eyebrow">Paycheck calculator</p>
+            <h1>Takehome</h1>
+          </div>
+          <p class="year">2026 tax rules</p>
+        </header>
+
+        <div class="layout">
+          <form class="card" id="pay-form">
+            <div class="pair">
+              <label class="field" for="hourly">
+                Hourly wage
+                <span class="control">
+                  <span class="prefix">$</span>
+                  <input id="hourly" class="with-prefix" inputmode="decimal" autocomplete="off" value="20" />
+                </span>
+              </label>
+              <label class="field" for="hours">
+                Hours this paycheck
+                <input id="hours" inputmode="decimal" autocomplete="off" value="40" />
+              </label>
+            </div>
+
+            <div class="triple">
+              <label class="field span-2" for="overtime">
+                Overtime hours
+                <input id="overtime" inputmode="decimal" autocomplete="off" value="0" />
+              </label>
+              <label class="field" for="ot-rate">
+                OT rate
+                <input id="ot-rate" inputmode="decimal" aria-describedby="ot-hint" value="1.5" />
+              </label>
+            </div>
+            <p id="ot-hint" class="hint">Overtime multiplier. 1.5 is time-and-a-half.</p>
+
+            <p id="hours-hint" class="note" hidden></p>
+
+            <fieldset>
+              <legend>How often you are paid</legend>
+              <div class="segment" id="frequency">
+                <button type="button" data-frequency="weekly" aria-pressed="true">Week</button>
+                <button type="button" data-frequency="biweekly" aria-pressed="false">2 weeks</button>
+                <button type="button" data-frequency="semimonthly" aria-pressed="false">2× month</button>
+                <button type="button" data-frequency="monthly" aria-pressed="false">Month</button>
+              </div>
+            </fieldset>
+
+            <label class="field" for="filing">
+              Filing status
+              <span class="control">
+                <select id="filing">
+                  <option value="single">Single</option>
+                  <option value="mfj">Married filing jointly</option>
+                  <option value="mfs">Married filing separately</option>
+                  <option value="hoh">Head of household</option>
+                </select>
+                <svg class="chevron select-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </label>
+
+            <label class="field" for="state">
+              State
+              <span class="control">
+                <select id="state"></select>
+                <svg class="chevron select-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </label>
+            <p id="pa-hint" class="note" hidden>
+              Pennsylvania is 3.07% flat. Philadelphia residents also pay a city wage tax — add 3.74% under local tax.
+            </p>
+
+            <div class="adjust">
+              <button type="button" class="adjust-toggle" id="adjust-toggle" aria-expanded="false" aria-controls="adjust-body">
+                Deductions and local tax
+                <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="adjust-body" id="adjust-body" hidden>
+                <div class="adjust-grid">
+                  <label class="field" for="retirement">
+                    401(k) percent
+                    <input id="retirement" inputmode="decimal" placeholder="0" />
+                  </label>
+                  <label class="field" for="health">
+                    Health per check
+                    <input id="health" inputmode="decimal" placeholder="0" />
+                  </label>
+                </div>
+                <label class="field" for="local">
+                  Local wage tax percent
+                  <input id="local" inputmode="decimal" placeholder="0" />
+                </label>
+                <div class="presets">
+                  <button type="button" data-local="3.74">Philadelphia 3.74%</button>
+                  <button type="button" data-local="3.876">New York City 3.876%</button>
+                  <button type="button" data-local="">Clear local</button>
+                </div>
+                <div class="adjust-grid">
+                  <label class="field" for="extra-federal">
+                    Extra federal $
+                    <input id="extra-federal" inputmode="decimal" placeholder="0" />
+                  </label>
+                  <label class="field" for="post-tax">
+                    After-tax $
+                    <input id="post-tax" inputmode="decimal" placeholder="0" />
+                  </label>
+                </div>
+                <label class="field" for="state-override">
+                  Override state rate %
+                  <input id="state-override" inputmode="decimal" placeholder="Use the estimate" />
+                </label>
+                <p class="hint">
+                  Leave the override blank to use the built-in state estimate. 401(k) is pre-tax for federal tax but still subject to
+                  Social Security. Health premiums here are treated as pre-tax and reduce FICA too.
+                </p>
+              </div>
+            </div>
+
+            <button type="button" class="reset" id="reset">Reset to $20 and 40 hours</button>
+          </form>
+
+          <section class="card result" aria-labelledby="takehome-heading">
+            <div>
+              <h2 class="eyebrow" id="takehome-heading">Take-home this week</h2>
+              <p id="take-home" class="takehome" aria-live="polite">$0.00</p>
+              <p id="summary" class="summary"></p>
+              <p id="hourly-net" class="after-hour" hidden></p>
+            </div>
+            <div>
+              <div id="share" class="share" role="img" aria-label="Pay split"></div>
+              <ul id="legend" class="legend"></ul>
+            </div>
+            <div>
+              <div class="cols">
+                <span>Line</span>
+                <span class="check">This check</span>
+                <span class="year-col">Year</span>
+              </div>
+              <ul id="rows" class="rows"></ul>
+            </div>
+          </section>
+        </div>
+
+        <p class="disclaimer">
+          Estimate for a W-2 paycheck. Federal tax uses 2026 brackets and the standard deduction, annualized as if this check repeats
+          all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax credits,
+          itemizing, and local taxes unless you add a rate. Not tax or payroll advice.
+        </p>
+      </div>
+
+      <div class="dock">
+        <div class="dock-inner">
+          <div>
+            <p class="dock-kicker" id="dock-label">Take-home this week</p>
+            <p class="dock-pay" id="dock-pay">$0.00</p>
+          </div>
+          <p class="dock-gross" id="dock-gross">$0.00<span>gross</span></p>
+        </div>
+      </div>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
