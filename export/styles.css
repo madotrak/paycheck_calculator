@@ -633,6 +633,22 @@ legend {
   }
 }
 
+.brand {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.brand img {
+  height: 2.75rem;
+  width: auto;
+}
+
+.lockup {
+  width: 100%;
+  max-width: 16rem;
+  border-radius: 1.5rem;
+}
+
 .site-nav {
   display: flex;
   flex-wrap: wrap;

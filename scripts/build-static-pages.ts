@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { CONTACT_URL, POLICY_UPDATED, PUBLISHER, PUBLISHER_PLACE, faqs, posts, type Block } from "../src/lib/site/content.ts";
+import { CONTACT_EMAIL, POLICY_UPDATED, PUBLISHER, PUBLISHER_PLACE, faqs, posts, type Block } from "../src/lib/site/content.ts";
 
 function escapeHtml(value: string): string {
   return value
@@ -62,9 +62,10 @@ function page(options: {
     <title>${escapeHtml(options.title)}</title>
     <meta name="description" content="${escapeHtml(options.description)}" />
     <meta name="theme-color" content="#f2f1ee" />
-    <link rel="icon" href="${depth}favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="${depth}favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="${depth}apple-touch-icon.png" />
     <link rel="stylesheet" href="${depth}styles.css" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8986347839279623" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9069566302664336" crossorigin="anonymous"></script>
   </head>
   <body>
     <main>
@@ -72,12 +73,13 @@ function page(options: {
         <div class="ad-inner">
           <p class="ad-label">Advertisement</p>
           <div class="ad-slot">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8986347839279623" data-ad-slot="9964661445" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9069566302664336" data-ad-slot="6638467983" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
           </div>
         </div>
       </aside>
       <div class="wrap">
+        <a class="brand" href="${depth}index.html"><img src="${depth}logo.png" alt="Takehome" /></a>
         <nav class="site-nav" aria-label="Site">
           ${nav}
         </nav>
@@ -117,6 +119,7 @@ const about = page({
           <p>It is for reading an offer, planning a week with overtime, or seeing why a stub is smaller than the hours times the wage. It is built around W-2 hourly pay in the United States, using 2026 federal rules and a simplified picture of each state.</p>
           <h2>What it is not</h2>
           <p>It is not a payroll department and it is not tax advice. It does not file a return, calculate a refund, or apply tax credits. State amounts in graduated-tax states are estimates, not official withholding tables. The short version of those limits is on the <a href="./faq.html">FAQ</a> and in the <a href="./blog/index.html">articles</a>.</p>
+          <img src="./brand-lockup.png" alt="Paycheck by Mado Apps" class="lockup" />
           <h2>Who publishes it</h2>
           <p>Takehome is published by ${escapeHtml(PUBLISHER)} in ${escapeHtml(PUBLISHER_PLACE)}. Questions about the calculator, a correction, or advertising on the site go through the <a href="./contact.html">contact page</a>. How the site handles information is in the <a href="./privacy.html">privacy policy</a>.</p>
         </article>`,
@@ -144,7 +147,7 @@ const privacy = page({
           <h2>Children</h2>
           <p>The calculator is written for adults looking at wages. It is not directed at children under 13, and it does not knowingly collect their information.</p>
           <h2>Changes and contact</h2>
-          <p>If this policy changes, the date at the top of the page will change with it. Questions about privacy can be sent through the publisher’s GitHub profile at <a href="${CONTACT_URL}">${CONTACT_URL}</a>.</p>
+          <p>If this policy changes, the date at the top of the page will change with it. Questions about privacy can be sent to <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.</p>
         </article>`,
 });
 
@@ -159,15 +162,14 @@ const contact = page({
           <p class="lede">${escapeHtml(PUBLISHER)} publishes Takehome from ${escapeHtml(PUBLISHER_PLACE)}. Use this page for a correction, a missing tax, or a question about the estimate.</p>
         </header>
         <article class="article">
-          <p>There is no support inbox built into the calculator. Write through GitHub, where the project lives, so the note is not stuck in this browser.</p>
+          <p>Email <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>. The form opens that address with your note filled in. Nothing is stored on a server.</p>
           <form class="contact-form" id="contact-form">
             <label>Name <input id="contact-name" name="name" autocomplete="name" /></label>
             <label>Email <input id="contact-email" name="email" type="email" autocomplete="email" /></label>
             <label>Message <textarea id="contact-message" name="message" rows="5" required></textarea></label>
-            <button type="submit">Prepare message</button>
+            <button type="submit">Email ${CONTACT_EMAIL}</button>
             <p id="contact-ready" hidden></p>
           </form>
-          <p>Publisher profile: <a href="${CONTACT_URL}">${CONTACT_URL}</a></p>
         </article>
         <script>
           document.getElementById("contact-form").addEventListener("submit", function (event) {
@@ -181,16 +183,11 @@ const contact = page({
             if (email) lines.push("Email: " + email);
             lines.push("");
             lines.push(message);
-            var href = ${JSON.stringify(`${CONTACT_URL}/paycheck_calculator/issues/new`)} + "?title=" + encodeURIComponent("Takehome calculator") + "&body=" + encodeURIComponent(lines.join("\\n"));
+            var href = "mailto:${CONTACT_EMAIL}?subject=" + encodeURIComponent("Takehome calculator") + "&body=" + encodeURIComponent(lines.join("\\n"));
             var ready = document.getElementById("contact-ready");
             ready.hidden = false;
-            ready.replaceChildren();
-            ready.append("Your note is ready. ");
-            var link = document.createElement("a");
-            link.href = href;
-            link.textContent = "Open it as a GitHub issue";
-            ready.append(link);
-            ready.append(" so it reaches ${escapeHtml(PUBLISHER)}. Nothing is stored on a server by this form.");
+            ready.textContent = "Your mail app should open with this note addressed to ${CONTACT_EMAIL}.";
+            window.location.href = href;
           });
         </script>`,
 });

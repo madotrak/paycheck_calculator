@@ -1,8 +1,8 @@
 /**
  * AdSense paycheck banner. Publisher id and slot are public; they ship in the page.
  */
-export const ADSENSE_CLIENT = "ca-pub-8986347839279623";
-export const ADSENSE_SLOT = "9964661445";
+export const ADSENSE_CLIENT = "ca-pub-9069566302664336";
+export const ADSENSE_SLOT = "6638467983";
 
 export function adsenseConfig(): { client: string; slot: string; enabled: boolean } {
   const client = ADSENSE_CLIENT.trim();

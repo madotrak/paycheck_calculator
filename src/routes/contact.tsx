@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { InfoPage } from "@/components/site-chrome";
-import { CONTACT_URL, PUBLISHER, PUBLISHER_PLACE } from "@/lib/site/content";
+import { CONTACT_EMAIL, PUBLISHER, PUBLISHER_PLACE } from "@/lib/site/content";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -21,7 +21,7 @@ function ContactPage() {
 
   const subject = encodeURIComponent("Takehome calculator");
   const body = encodeURIComponent([name && `Name: ${name}`, email && `Email: ${email}`, "", message].filter(Boolean).join("\n"));
-  const githubIssue = `${CONTACT_URL}/paycheck_calculator/issues/new?title=${subject}&body=${body}`;
+  const mailto = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
   return (
     <InfoPage
@@ -30,8 +30,11 @@ function ContactPage() {
       lede={`${PUBLISHER} publishes Takehome from ${PUBLISHER_PLACE}. Use this page for a correction, a missing tax, or a question about the estimate.`}
     >
       <p>
-        There is no support inbox built into the calculator. Write through GitHub, where the project lives, so the note is not stuck in
-        this browser.
+        Email{" "}
+        <a className="font-medium underline decoration-line underline-offset-2" href={`mailto:${CONTACT_EMAIL}`}>
+          {CONTACT_EMAIL}
+        </a>
+        . The form opens that address with your note filled in. Nothing is stored on a server.
       </p>
       <form
         className="flex flex-col gap-4 rounded-3xl border border-line bg-card p-4"
@@ -39,6 +42,7 @@ function ContactPage() {
           event.preventDefault();
           if (message.trim() === "") return;
           setReady(true);
+          window.location.href = mailto;
         }}
       >
         <label className="flex flex-col gap-1.5 text-sm font-medium text-muted" htmlFor="contact-name">
@@ -83,24 +87,10 @@ function ContactPage() {
           />
         </label>
         <button type="submit" className="h-11 rounded-lg bg-accent px-4 text-sm font-medium text-accent-fg">
-          Prepare message
+          Email {CONTACT_EMAIL}
         </button>
-        {ready ? (
-          <p>
-            Your note is ready.{" "}
-            <a className="font-medium underline decoration-line underline-offset-2" href={githubIssue} rel="noopener noreferrer">
-              Open it as a GitHub issue
-            </a>{" "}
-            so it reaches {PUBLISHER}. Nothing is stored on a server by this form.
-          </p>
-        ) : null}
+        {ready ? <p>Your mail app should open with this note addressed to {CONTACT_EMAIL}.</p> : null}
       </form>
-      <p>
-        Publisher profile:{" "}
-        <a className="font-medium underline decoration-line underline-offset-2" href={CONTACT_URL} rel="noopener noreferrer">
-          {CONTACT_URL}
-        </a>
-      </p>
     </InfoPage>
   );
 }

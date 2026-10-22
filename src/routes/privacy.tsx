@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { InfoPage } from "@/components/site-chrome";
-import { CONTACT_URL, POLICY_UPDATED, PUBLISHER } from "@/lib/site/content";
+import { CONTACT_EMAIL, POLICY_UPDATED, PUBLISHER } from "@/lib/site/content";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -61,10 +61,9 @@ function PrivacyPage() {
       <p>The calculator is written for adults looking at wages. It is not directed at children under 13, and it does not knowingly collect their information.</p>
       <h2 className="font-display text-xl font-semibold tracking-tight">Changes and contact</h2>
       <p>
-        If this policy changes, the date at the top of the page will change with it. Questions about privacy can be sent through the
-        publisher’s GitHub profile at{" "}
-        <a className="font-medium underline decoration-line underline-offset-2" href={CONTACT_URL} rel="noopener noreferrer">
-          {CONTACT_URL}
+        If this policy changes, the date at the top of the page will change with it. Questions about privacy can be sent to{" "}
+        <a className="font-medium underline decoration-line underline-offset-2" href={`mailto:${CONTACT_EMAIL}`}>
+          {CONTACT_EMAIL}
         </a>
         .
       </p>

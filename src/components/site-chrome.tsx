@@ -12,7 +12,12 @@ const LINKS = [
 
 export function SiteNav() {
   return (
-    <nav aria-label="Site" className="-mx-1 flex flex-wrap">
+    <div className="flex flex-col gap-2">
+      <Link to="/" className="inline-flex w-fit items-center">
+        <img src="/logo.png" alt="" className="h-10 w-auto" />
+        <span className="sr-only">Takehome</span>
+      </Link>
+      <nav aria-label="Site" className="-mx-1 flex flex-wrap">
       {LINKS.map((link) => (
         <Link
           key={link.to}
@@ -26,7 +31,8 @@ export function SiteNav() {
           {link.label}
         </Link>
       ))}
-    </nav>
+      </nav>
+    </div>
   );
 }
 

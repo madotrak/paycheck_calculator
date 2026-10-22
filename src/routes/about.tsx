@@ -44,6 +44,7 @@ function AboutPage() {
         </Link>
         .
       </p>
+      <img src="/brand-lockup.png" alt="Paycheck by Mado Apps" className="w-full max-w-xs rounded-3xl" />
       <h2 className="font-display text-xl font-semibold tracking-tight">Who publishes it</h2>
       <p>
         Takehome is published by {PUBLISHER} in {PUBLISHER_PLACE}. Questions about the calculator, a correction, or advertising on the site

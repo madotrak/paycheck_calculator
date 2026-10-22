@@ -13,7 +13,7 @@ export type Post = {
 
 export const PUBLISHER = "MadoTrak";
 export const PUBLISHER_PLACE = "Philadelphia, Pennsylvania";
-export const CONTACT_URL = "https://github.com/madotrak";
+export const CONTACT_EMAIL = "Samad@samadrobinson.com";
 export const POLICY_UPDATED = "October 20, 2026";
 
 export const posts: Post[] = [
