@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Blocks, InfoPage } from "@/components/site-chrome";
 import { getPost } from "@/lib/site/content";
+import { AFFILIATE_DISCLOSURE, blockHasAffiliate } from "@/lib/site/rich-text";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -24,6 +25,7 @@ function PostPage() {
   const post = Route.useLoaderData();
   return (
     <InfoPage eyebrow={post.date} title={post.title} lede={post.description}>
+      {post.blocks.some(blockHasAffiliate) ? <p>{AFFILIATE_DISCLOSURE}</p> : null}
       <Blocks blocks={post.blocks} />
       <p>
         <Link to="/blog" className="font-medium underline decoration-line underline-offset-2">

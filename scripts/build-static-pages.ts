@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { CONTACT_EMAIL, POLICY_UPDATED, PUBLISHER, PUBLISHER_PLACE, faqs, posts, type Block } from "../src/lib/site/content.ts";
+import { AFFILIATE_DISCLOSURE, blockHasAffiliate, richParts } from "../src/lib/site/rich-text.ts";
 
 function escapeHtml(value: string): string {
   return value
@@ -10,14 +11,33 @@ function escapeHtml(value: string): string {
     .replaceAll('"', "&" + "quot;");
 }
 
+function richHtml(input: string): string {
+  return richParts(input)
+    .map((part) => {
+      if (part.kind === "text") return escapeHtml(part.value);
+      const rel = part.affiliate ? "sponsored nofollow noopener noreferrer" : "noopener noreferrer";
+      const note = part.affiliate ? " (affiliate)" : "";
+      return `<a href="${escapeHtml(part.href)}" rel="${rel}" target="_blank">${escapeHtml(part.label)}</a>${note}`;
+    })
+    .join("");
+}
+
 function blocksHtml(blocks: Block[]): string {
   return blocks
     .map((block) => {
       if (block.type === "h2") return `<h2>${escapeHtml(block.text)}</h2>`;
       if (block.type === "ul") {
-        return `<ul>${block.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+        return `<ul>${block.items.map((item) => `<li>${richHtml(item)}</li>`).join("")}</ul>`;
       }
-      return `<p>${escapeHtml(block.text)}</p>`;
+      if (block.type === "link") {
+        const rel = block.affiliate ? "sponsored nofollow noopener noreferrer" : "noopener noreferrer";
+        const note = block.affiliate ? " (affiliate)" : "";
+        return `<p><a href="${escapeHtml(block.href)}" rel="${rel}" target="_blank">${escapeHtml(block.text)}</a>${note}</p>`;
+      }
+      if (block.type === "img") {
+        return `<img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}" class="lockup" />`;
+      }
+      return `<p>${richHtml(block.text)}</p>`;
     })
     .join("\n");
 }
@@ -251,6 +271,7 @@ function postPage(slug: string): string {
           <p class="lede">${escapeHtml(post.description)}</p>
         </header>
         <article class="article">
+          ${post.blocks.some(blockHasAffiliate) ? `<p>${escapeHtml(AFFILIATE_DISCLOSURE)}</p>` : ""}
           ${blocksHtml(post.blocks)}
           <p><a href="./index.html">All articles</a></p>
         </article>`,

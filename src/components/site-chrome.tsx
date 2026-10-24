@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { AdsenseBanner } from "@/components/adsense-banner";
+import type { Block } from "@/lib/site/content";
+import { richParts } from "@/lib/site/rich-text";
 
 const LINKS = [
   { to: "/", label: "Calculator" },
@@ -89,7 +91,26 @@ export function InfoPage({
   );
 }
 
-export function Blocks({ blocks }: { blocks: { type: string; text?: string; items?: string[] }[] }) {
+function RichText({ text }: { text: string }) {
+  return richParts(text).map((part, index) => {
+    if (part.kind === "text") return <span key={index}>{part.value}</span>;
+    return (
+      <span key={index}>
+        <a
+          className="font-medium underline decoration-line underline-offset-2"
+          href={part.href}
+          rel={part.affiliate ? "sponsored nofollow noopener noreferrer" : "noopener noreferrer"}
+          target="_blank"
+        >
+          {part.label}
+        </a>
+        {part.affiliate ? " (affiliate)" : null}
+      </span>
+    );
+  });
+}
+
+export function Blocks({ blocks }: { blocks: Block[] }) {
   return (
     <>
       {blocks.map((block, index) => {
@@ -103,15 +124,37 @@ export function Blocks({ blocks }: { blocks: { type: string; text?: string; item
         if (block.type === "ul") {
           return (
             <ul key={index} className="list-disc pl-5">
-              {(block.items ?? []).map((item) => (
+              {block.items.map((item) => (
                 <li key={item} className="mt-1">
-                  {item}
+                  <RichText text={item} />
                 </li>
               ))}
             </ul>
           );
         }
-        return <p key={index}>{block.text}</p>;
+        if (block.type === "link") {
+          return (
+            <p key={index}>
+              <a
+                className="font-medium underline decoration-line underline-offset-2"
+                href={block.href}
+                rel={block.affiliate ? "sponsored nofollow noopener noreferrer" : "noopener noreferrer"}
+                target="_blank"
+              >
+                {block.text}
+              </a>
+              {block.affiliate ? " (affiliate)" : null}
+            </p>
+          );
+        }
+        if (block.type === "img") {
+          return <img key={index} src={block.src} alt={block.alt} className="w-full max-w-prose rounded-3xl" />;
+        }
+        return (
+          <p key={index}>
+            <RichText text={block.text} />
+          </p>
+        );
       })}
     </>
   );

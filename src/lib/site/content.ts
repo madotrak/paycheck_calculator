@@ -1,7 +1,9 @@
 export type Block =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
-  | { type: "ul"; items: string[] };
+  | { type: "ul"; items: string[] }
+  | { type: "link"; text: string; href: string; affiliate?: boolean }
+  | { type: "img"; src: string; alt: string };
 
 export type Post = {
   slug: string;

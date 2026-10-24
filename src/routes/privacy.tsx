@@ -35,8 +35,9 @@ function PrivacyPage() {
       </p>
       <h2 className="font-display text-xl font-semibold tracking-tight">Advertising</h2>
       <p>
-        Pages include a Google AdSense unit. Google and its partners may use cookies to serve and measure ads, including ads based on
-        your visits to this and other sites. That activity is governed by Google’s policies, not by this calculator’s math.
+        Pages include a Google AdSense unit. Some articles also include affiliate links, which are labeled. If you use an affiliate
+        link, the publisher may earn a commission. Google and its partners may use cookies to serve and measure ads, including ads based
+        on your visits to this and other sites. That activity is governed by Google’s policies, not by this calculator’s math.
       </p>
       <p>
         You can read how Google uses data from sites that use its services at{" "}
