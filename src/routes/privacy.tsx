@@ -40,6 +40,10 @@ function PrivacyPage() {
         on your visits to this and other sites. That activity is governed by Google’s policies, not by this calculator’s math.
       </p>
       <p>
+        The Paycheck Android app shows ads with Google AdMob instead of AdSense. Google may use the device advertising ID to serve and
+        measure those ads. Wage numbers typed into the app stay on the device.
+      </p>
+      <p>
         You can read how Google uses data from sites that use its services at{" "}
         <a
           className="font-medium underline decoration-line underline-offset-2"
