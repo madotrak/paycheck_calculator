@@ -166,7 +166,7 @@ export const posts: Post[] = [
     blocks: [
       {
         type: "p",
-        text: "Payroll software uses withholding tables, a Form W-4, benefit elections, and sometimes a local tax code tied to an address. Takehome uses the numbers you type and a simplified set of 2026 rules. The two will be close for a straightforward hourly job and further apart when the year is complicated.",
+        text: "Payroll software uses withholding tables, a Form W-4, benefit elections, and sometimes a local tax code tied to an address. Takehome uses the numbers you type and a simplified estimate based on publicly available tax information. The two will be close for a straightforward hourly job and further apart when the year is complicated. These figures are not an official government calculation. See the [Internal Revenue Service](https://www.irs.gov).",
       },
       {
         type: "h2",
@@ -203,7 +203,7 @@ export const faqs: { question: string; answer: string }[] = [
   {
     question: "Will this match my pay stub exactly?",
     answer:
-      "Usually not to the penny. The calculator annualizes this paycheck, uses 2026 federal brackets and the standard deduction, and uses a simplified state estimate. Payroll uses your W-4, benefit elections, and official withholding tables. Compare the lines, and use the override fields when your stub shows a different rate.",
+      "Usually not to the penny. This is an estimate that annualizes one paycheck using publicly available tax information, including federal brackets and the standard deduction, plus a simplified state estimate. It is not official withholding and it is not tax advice. Payroll uses your W-4, benefit elections, and its own tables. Compare the lines, and use the override fields when your stub shows a different rate.",
   },
   {
     question: "Which hours should I enter?",

@@ -524,6 +524,13 @@ legend {
   color: var(--faint);
 }
 
+.gov-disclaimer {
+  max-width: 48rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 .dock {
   position: fixed;
   inset-inline: 0;

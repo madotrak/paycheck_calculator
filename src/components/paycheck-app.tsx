@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import {
   calculatePaycheck,
@@ -165,7 +166,7 @@ export function PaycheckApp() {
             <p className="text-sm font-medium text-muted">Paycheck calculator</p>
             <h1 className="font-display text-title font-semibold tracking-tight">Takehome</h1>
           </div>
-          <p className="text-sm text-faint">2026 tax rules</p>
+          <p className="text-sm text-faint">Estimate only</p>
         </header>
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]">
@@ -289,9 +290,15 @@ export function PaycheckApp() {
             </Field>
             {values.stateId === "PA" && values.localPct.trim() === "" ? (
               <p className="-mt-3 text-sm text-muted">
-                Pennsylvania is 3.07% flat. Philadelphia residents also pay a city wage tax — add 3.74% under local tax.
+                Pennsylvania’s flat wage tax is included as an estimate. Philadelphia residents can add the city wage tax under local tax.
+                These are not official withholding tables.
               </p>
             ) : null}
+
+            <p className="text-xs leading-5 text-muted">
+              Government Disclaimer: Paycheck is not a government application and is not affiliated with any federal, state, or local
+              government agency.
+            </p>
 
             <div className="border-t border-line pt-4">
               <button
@@ -338,7 +345,7 @@ export function PaycheckApp() {
                     />
                   </Field>
                   <div className="flex flex-wrap gap-2">
-                    <Preset onClick={() => set({ localPct: "3.74" })}>Philadelphia 3.74%</Preset>
+                    <Preset onClick={() => set({ localPct: "3.74" })}>Philadelphia estimate 3.74%</Preset>
                     <Preset onClick={() => set({ localPct: "3.876" })}>New York City 3.876%</Preset>
                     <Preset onClick={() => set({ localPct: "" })}>Clear local</Preset>
                   </div>
@@ -398,9 +405,17 @@ export function PaycheckApp() {
         </div>
 
         <p className="max-w-3xl text-sm text-faint">
-          Estimate for a W-2 paycheck. Federal tax uses 2026 brackets and the standard deduction, annualized as if this check repeats
-          all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax credits,
-          itemizing, and local taxes unless you add a rate. Not tax or payroll advice.
+          The estimate uses publicly available tax information and payroll guidelines for estimation purposes only. It annualizes this check
+          as if it repeats all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax
+          credits, itemizing, and local taxes unless you add a rate. Not tax, legal, or payroll advice.
+        </p>
+        <p className="max-w-3xl text-xs leading-5 text-muted">
+          Disclaimer: Paycheck is an independent paycheck estimation tool and is not affiliated with, endorsed by, or operated by the
+          Internal Revenue Service (IRS), Social Security Administration (SSA), Centers for Medicare & Medicaid Services (CMS), the
+          U.S. Department of Labor, or any United States government agency. Information is provided for estimation purposes only.{" "}
+          <Link to="/sources" className="font-medium underline decoration-line underline-offset-2">
+            Government Sources
+          </Link>
         </p>
         <SiteFooter />
       </div>

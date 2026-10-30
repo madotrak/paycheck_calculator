@@ -53,6 +53,7 @@ function page(options: {
   const nav = [
     ["Calculator", `${depth}index.html`],
     ["About", `${depth}about.html`],
+    ["Government Sources", `${depth}sources.html`],
     ["Blog", `${depth}blog/index.html`],
     ["FAQ", `${depth}faq.html`],
     ["Contact", `${depth}contact.html`],
@@ -62,14 +63,16 @@ function page(options: {
       return `<a href="${href}"${current}>${label}</a>`;
     })
     .join("\n          ");
-  const footer = ["About", "Privacy", "FAQ", "Contact", "Blog"]
+  const footer = ["About", "Government Sources", "Privacy", "FAQ", "Contact", "Blog"]
     .map((label) => {
       const href =
         label === "Blog"
           ? `${depth}blog/index.html`
           : label === "Privacy"
             ? `${depth}privacy.html`
-            : `${depth}${label.toLowerCase()}.html`;
+            : label === "Government Sources"
+              ? `${depth}sources.html`
+              : `${depth}${label.toLowerCase()}.html`;
       return `<a href="${href}">${label}</a>`;
     })
     .join("\n            ");
@@ -108,6 +111,7 @@ function page(options: {
           <nav aria-label="Footer">
             ${footer}
           </nav>
+          <p>Not affiliated with any government agency. Estimates only.</p>
           <p>Estimates for a W-2 paycheck. Not tax or payroll advice.</p>
         </footer>
       </div>
@@ -130,18 +134,40 @@ const about = page({
   depth: "",
   body: `<header class="page">
           <p class="eyebrow">About</p>
-          <h1>A paycheck calculator for hourly work</h1>
-          <p class="lede">Takehome estimates what is left from an hourly wage after federal tax, Social Security, Medicare, and the state or local taxes you include.</p>
+          <h1>About Paycheck</h1>
+          <p class="lede">Paycheck is an independent paycheck estimation tool designed to help users estimate take-home pay, taxes, overtime earnings, and payroll deductions.</p>
         </header>
         <article class="article">
-          <p>You enter a wage, the hours on one paycheck, and any overtime. The result is an estimate of that check and of a year made of checks like it. Filing status, state, a 401(k) percent, health premiums, extra withholding, and a local wage tax can all be included.</p>
-          <h2>What it is for</h2>
-          <p>It is for reading an offer, planning a week with overtime, or seeing why a stub is smaller than the hours times the wage. It is built around W-2 hourly pay in the United States, using 2026 federal rules and a simplified picture of each state.</p>
-          <h2>What it is not</h2>
-          <p>It is not a payroll department and it is not tax advice. It does not file a return, calculate a refund, or apply tax credits. State amounts in graduated-tax states are estimates, not official withholding tables. The short version of those limits is on the <a href="./faq.html">FAQ</a> and in the <a href="./blog/index.html">articles</a>.</p>
+          <p>The calculations provided by this app are estimates only and should not be considered financial, tax, legal, or payroll advice.</p>
+          <p>Results may differ from actual paycheck amounts depending on employer payroll systems, tax elections, credits, deductions, exemptions, and individual circumstances.</p>
+          <p>Always consult official government resources, a tax professional, or your payroll department before making financial decisions. Those sources are listed on the <a href="./sources.html">Government Sources</a> page.</p>
+          <h2>What you can enter</h2>
+          <p>You enter a wage, the hours on one paycheck, and any overtime. Filing status, state, a 401(k) percent, health premiums, extra withholding, and a local wage tax can all be included. The result estimates that check, and a year made of checks like it, from publicly available tax information. It is not an official government calculation.</p>
           <img src="./brand-lockup.png" alt="Paycheck by Mado Apps" class="lockup" />
           <h2>Who publishes it</h2>
-          <p>Takehome is published by ${escapeHtml(PUBLISHER)} in ${escapeHtml(PUBLISHER_PLACE)}. Questions about the calculator, a correction, or advertising on the site go through the <a href="./contact.html">contact page</a>. How the site handles information is in the <a href="./privacy.html">privacy policy</a>.</p>
+          <p>Paycheck is published by ${escapeHtml(PUBLISHER)} in ${escapeHtml(PUBLISHER_PLACE)}. It is not affiliated with any government agency. Questions go through the <a href="./contact.html">contact page</a>. How the site handles information is in the <a href="./privacy.html">privacy policy</a>.</p>
+        </article>`,
+});
+
+const sources = page({
+  title: "Government Information Sources · Takehome",
+  description: "Official government sources used as background for the Paycheck estimate. Paycheck is not a government app.",
+  current: "Government Sources",
+  depth: "",
+  body: `<header class="page">
+          <p class="eyebrow">Sources</p>
+          <h1>Government Information Sources</h1>
+          <p class="lede">This application uses publicly available government information and tax guidance from the following official sources.</p>
+        </header>
+        <article class="article">
+          <p>Paycheck is not affiliated with, endorsed by, or operated by any of these agencies. The links below are the original sources. The numbers in the calculator are estimates, not official rulings.</p>
+          <ul>
+            <li><a href="https://www.irs.gov" rel="noopener noreferrer" target="_blank">Internal Revenue Service (IRS)</a><br />https://www.irs.gov</li>
+            <li><a href="https://www.irs.gov/forms-pubs/about-publication-15-t" rel="noopener noreferrer" target="_blank">IRS Publication 15-T</a><br />https://www.irs.gov/forms-pubs/about-publication-15-t</li>
+            <li><a href="https://www.ssa.gov" rel="noopener noreferrer" target="_blank">Social Security Administration (SSA)</a><br />https://www.ssa.gov</li>
+            <li><a href="https://www.cms.gov" rel="noopener noreferrer" target="_blank">Centers for Medicare & Medicaid Services (CMS)</a><br />https://www.cms.gov</li>
+            <li><a href="https://www.dol.gov" rel="noopener noreferrer" target="_blank">U.S. Department of Labor</a><br />https://www.dol.gov</li>
+          </ul>
         </article>`,
 });
 
@@ -163,6 +189,7 @@ const privacy = page({
           <p>The calculator does not ask for your name, Social Security number, bank account, employer, or address. Do not type those into the wage or notes fields. There is no sale of personal information.</p>
           <h2>Advertising</h2>
           <p>Pages include a Google AdSense unit. Google and its partners may use cookies to serve and measure ads, including ads based on your visits to this and other sites.</p>
+          <p>The Paycheck Android app shows ads with Google AdMob instead of AdSense. Google may use the device advertising ID to serve and measure those ads. Wage numbers typed into the app stay on the device.</p>
           <p>You can read how Google uses data from sites that use its services at <a href="https://policies.google.com/technologies/ads">Google’s advertising policy</a>. Ad personalization can be changed at <a href="https://adssettings.google.com">Google ad settings</a>. You can also block third-party cookies in your browser.</p>
           <h2>Children</h2>
           <p>The calculator is written for adults looking at wages. It is not directed at children under 13, and it does not knowingly collect their information.</p>
@@ -280,6 +307,7 @@ function postPage(slug: string): string {
 
 for (const root of ["docs", "export"]) {
   write(root, "about.html", about);
+  write(root, "sources.html", sources);
   write(root, "privacy.html", privacy);
   write(root, "contact.html", contact);
   write(root, "faq.html", faq);

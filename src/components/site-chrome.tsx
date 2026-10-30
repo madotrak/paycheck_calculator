@@ -7,6 +7,7 @@ import { richParts } from "@/lib/site/rich-text";
 const LINKS = [
   { to: "/", label: "Calculator" },
   { to: "/about", label: "About" },
+  { to: "/sources", label: "Government Sources" },
   { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
   { to: "/contact", label: "Contact" },
@@ -45,6 +46,9 @@ export function SiteFooter() {
         <Link to="/about" className="underline decoration-line underline-offset-2">
           About
         </Link>
+        <Link to="/sources" className="underline decoration-line underline-offset-2">
+          Government Sources
+        </Link>
         <Link to="/privacy" className="underline decoration-line underline-offset-2">
           Privacy
         </Link>
@@ -58,6 +62,7 @@ export function SiteFooter() {
           Blog
         </Link>
       </nav>
+      <p className="text-faint">Not affiliated with any government agency. Estimates only.</p>
       <p className="text-faint">Estimates for a W-2 paycheck. Not tax or payroll advice.</p>
     </footer>
   );

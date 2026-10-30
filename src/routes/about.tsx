@@ -19,36 +19,34 @@ function AboutPage() {
   return (
     <InfoPage
       eyebrow="About"
-      title="A paycheck calculator for hourly work"
-      lede="Takehome estimates what is left from an hourly wage after federal tax, Social Security, Medicare, and the state or local taxes you include."
+      title="About Paycheck"
+      lede="Paycheck is an independent paycheck estimation tool designed to help users estimate take-home pay, taxes, overtime earnings, and payroll deductions."
     >
       <p>
-        You enter a wage, the hours on one paycheck, and any overtime. The result is an estimate of that check and of a year made of checks
-        like it. Filing status, state, a 401(k) percent, health premiums, extra withholding, and a local wage tax can all be included.
+        The calculations provided by this app are estimates only and should not be considered financial, tax, legal, or payroll advice.
       </p>
-      <h2 className="font-display text-xl font-semibold tracking-tight">What it is for</h2>
       <p>
-        It is for reading an offer, planning a week with overtime, or seeing why a stub is smaller than the hours times the wage. It is
-        built around W-2 hourly pay in the United States, using 2026 federal rules and a simplified picture of each state.
+        Results may differ from actual paycheck amounts depending on employer payroll systems, tax elections, credits, deductions, exemptions,
+        and individual circumstances.
       </p>
-      <h2 className="font-display text-xl font-semibold tracking-tight">What it is not</h2>
       <p>
-        It is not a payroll department and it is not tax advice. It does not file a return, calculate a refund, or apply tax credits. State
-        amounts in graduated-tax states are estimates, not official withholding tables. The short version of those limits is on the{" "}
-        <Link to="/faq" className="font-medium underline decoration-line underline-offset-2">
-          FAQ
+        Always consult official government resources, a tax professional, or your payroll department before making financial decisions. Those
+        sources are listed on the{" "}
+        <Link to="/sources" className="font-medium underline decoration-line underline-offset-2">
+          Government Sources
         </Link>{" "}
-        and in the{" "}
-        <Link to="/blog" className="font-medium underline decoration-line underline-offset-2">
-          articles
-        </Link>
-        .
+        page.
+      </p>
+      <h2 className="font-display text-xl font-semibold tracking-tight">What you can enter</h2>
+      <p>
+        You enter a wage, the hours on one paycheck, and any overtime. Filing status, state, a 401(k) percent, health premiums, extra
+        withholding, and a local wage tax can all be included. The result estimates that check, and a year made of checks like it, from
+        publicly available tax information. It is not an official government calculation.
       </p>
       <img src="/brand-lockup.png" alt="Paycheck by Mado Apps" className="w-full max-w-xs rounded-3xl" />
       <h2 className="font-display text-xl font-semibold tracking-tight">Who publishes it</h2>
       <p>
-        Takehome is published by {PUBLISHER} in {PUBLISHER_PLACE}. Questions about the calculator, a correction, or advertising on the site
-        go through the{" "}
+        Paycheck is published by {PUBLISHER} in {PUBLISHER_PLACE}. It is not affiliated with any government agency. Questions go through the{" "}
         <Link to="/contact" className="font-medium underline decoration-line underline-offset-2">
           contact page
         </Link>

@@ -21,6 +21,7 @@
         <nav class="site-nav" aria-label="Site">
           <a href="./index.html" aria-current="page">Calculator</a>
           <a href="./about.html">About</a>
+          <a href="./sources.html">Government Sources</a>
           <a href="./blog/index.html">Blog</a>
           <a href="./faq.html">FAQ</a>
           <a href="./contact.html">Contact</a>
@@ -30,7 +31,7 @@
             <p class="eyebrow">Paycheck calculator</p>
             <h1>Takehome</h1>
           </div>
-          <p class="year">2026 tax rules</p>
+          <p class="year">Estimate only</p>
         </header>
 
         <div class="layout">
@@ -98,7 +99,11 @@
               </span>
             </label>
             <p id="pa-hint" class="note" hidden>
-              Pennsylvania is 3.07% flat. Philadelphia residents also pay a city wage tax — add 3.74% under local tax.
+              Pennsylvania’s flat wage tax is included as an estimate. Philadelphia residents can add the city wage tax under local tax.
+              These are not official withholding tables.
+            </p>
+            <p class="gov-disclaimer">
+              Government Disclaimer: Paycheck is not a government application and is not affiliated with any federal, state, or local government agency.
             </p>
 
             <div class="adjust">
@@ -124,7 +129,7 @@
                   <input id="local" inputmode="decimal" placeholder="0" />
                 </label>
                 <div class="presets">
-                  <button type="button" data-local="3.74">Philadelphia 3.74%</button>
+                  <button type="button" data-local="3.74">Philadelphia estimate 3.74%</button>
                   <button type="button" data-local="3.876">New York City 3.876%</button>
                   <button type="button" data-local="">Clear local</button>
                 </div>
@@ -175,18 +180,26 @@
         </div>
 
         <p class="disclaimer">
-          Estimate for a W-2 paycheck. Federal tax uses 2026 brackets and the standard deduction, annualized as if this check repeats
-          all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax credits,
-          itemizing, and local taxes unless you add a rate. Not tax or payroll advice.
+          The estimate uses publicly available tax information and payroll guidelines for estimation purposes only. It annualizes this check
+          as if it repeats all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax
+          credits, itemizing, and local taxes unless you add a rate. Not tax, legal, or payroll advice.
+        </p>
+        <p class="gov-disclaimer">
+          Disclaimer: Paycheck is an independent paycheck estimation tool and is not affiliated with, endorsed by, or operated by the
+          Internal Revenue Service (IRS), Social Security Administration (SSA), Centers for Medicare & Medicaid Services (CMS), the
+          U.S. Department of Labor, or any United States government agency. Information is provided for estimation purposes only.
+          <a href="./sources.html">Government Sources</a>
         </p>
         <footer class="site-footer">
           <nav aria-label="Footer">
             <a href="./about.html">About</a>
+            <a href="./sources.html">Government Sources</a>
             <a href="./privacy.html">Privacy</a>
             <a href="./faq.html">FAQ</a>
             <a href="./contact.html">Contact</a>
             <a href="./blog/index.html">Blog</a>
           </nav>
+          <p>Not affiliated with any government agency. Estimates only.</p>
           <p>Estimates for a W-2 paycheck. Not tax or payroll advice.</p>
         </footer>
       </div>
