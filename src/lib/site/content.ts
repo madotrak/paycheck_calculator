@@ -20,6 +20,50 @@ export const POLICY_UPDATED = "October 20, 2026";
 
 export const posts: Post[] = [
   {
+    slug: "a-second-job",
+    title: "A second job",
+    description: "Adding two take-home estimates makes the tax look too low. One combined check is closer.",
+    date: "November 3, 2026",
+    blocks: [
+      {
+        type: "p",
+        text: "Each employer withholds as if that job were your only job. Run the calculator twice, once for each check, and the two take-home numbers will not add up to the year. Each run applies the standard deduction and the lower tax brackets on its own. A real year gets one standard deduction, and the brackets apply to the wages from both jobs together. The two separate estimates usually show too little tax and too much take-home.",
+      },
+      {
+        type: "h2",
+        text: "A weekly example",
+      },
+      {
+        type: "p",
+        text: "Job A pays $20 an hour for 30 hours, or $600 a week. Job B pays $18 an hour for 15 hours, or $270 a week. Estimated alone, each check is taxed as a modest income. Together they are $870 a week, about $45,000 a year before overtime. That combined year can sit in a higher federal bracket than either job would on its own. Social Security and Medicare are still a percent of wages. They do not get a second standard deduction, so those lines are less misleading than the income-tax line when you add two checks.",
+      },
+      {
+        type: "h2",
+        text: "Put both jobs on one check",
+      },
+      {
+        type: "p",
+        text: "Add the gross pay from both jobs for the same stretch of time, then enter that as one paycheck. In the example, $870 a week is 40 hours at $21.75, or 30 hours at $29. Either pair is fine. The calculator only needs the gross for that period. Use the same filing status you expect to use on the return. The result is still an estimate, but it taxes the combined wages once instead of twice.",
+      },
+      {
+        type: "p",
+        text: "Pay schedules that do not match are the awkward part. A weekly job and a check every two weeks do not share a payday. Add two weeks of the weekly job to one biweekly check, or convert both to a yearly gross and divide by 52, before you type the wage and hours.",
+      },
+      {
+        type: "h2",
+        text: "What the calculator still will not do",
+      },
+      {
+        type: "p",
+        text: "It will not split the withholding between the two employers. It will not know that one job already used part of your standard deduction. If the second job is tips, a 1099, or self-employment, this hourly estimate does not apply. Self-employment tax is a different bill. None of this is tax, payroll, or legal advice.",
+      },
+      {
+        type: "p",
+        text: "The [Internal Revenue Service](https://www.irs.gov) explains withholding on [Form W-4](https://www.irs.gov/forms-pubs/about-form-w-4). Extra withholding on the higher-paying job is the usual way people close the gap. Compare that with a real stub before you rely on the number.",
+      },
+    ],
+  },
+  {
     slug: "hourly-wage-to-take-home",
     title: "From an hourly wage to take-home pay",
     description: "What happens between the hours on a timesheet and the amount that lands in the account.",
