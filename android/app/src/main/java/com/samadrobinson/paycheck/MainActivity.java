@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.activity.OnBackPressedCallback;
@@ -23,7 +24,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String BANNER_AD_UNIT = "ca-app-pub-8986347839279623/3172314939";
     private WebView web;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +67,13 @@ public class MainActivity extends AppCompatActivity {
         });
         web.loadUrl("file:///android_asset/www/index.html");
 
-        AdView adView = findViewById(R.id.ad_view);
+        FrameLayout adContainer = findViewById(R.id.ad_container);
+        adView = new AdView(this);
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int adWidth = (int) (metrics.widthPixels / metrics.density);
+        adView.setAdUnitId(BANNER_AD_UNIT);
         adView.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth));
+        adContainer.addView(adView);
         MobileAds.initialize(this);
         adView.loadAd(new AdRequest.Builder().build());
 
@@ -86,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        AdView adView = findViewById(R.id.ad_view);
         if (adView != null) {
             adView.pause();
         }
@@ -96,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        AdView adView = findViewById(R.id.ad_view);
         if (adView != null) {
             adView.resume();
         }
@@ -104,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        AdView adView = findViewById(R.id.ad_view);
         if (adView != null) {
             adView.destroy();
         }
