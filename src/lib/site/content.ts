@@ -20,6 +20,79 @@ export const POLICY_UPDATED = "October 20, 2026";
 
 export const posts: Post[] = [
   {
+    slug: "a-raise-is-not-take-home",
+    title: "A raise is not the amount that hits your account",
+    description: "A higher hourly wage raises the gross check by more than it raises take-home.",
+    date: "November 16, 2026",
+    blocks: [
+      {
+        type: "p",
+        text: "A $2 raise sounds like $2 more for every hour on the check. Gross pay does work that way. Take-home does not. Federal income tax, Social Security, Medicare, and any state tax apply to the extra dollars. The amount that reaches the account is the raise minus those lines.",
+      },
+      {
+        type: "h2",
+        text: "Forty hours at $20, then at $22",
+      },
+      {
+        type: "p",
+        text: "On a weekly check, 40 hours at $20 is $800 gross. The same 40 hours at $22 is $880 gross. The raise is $80 on that check, or $4,160 over a 52-week year if the hours stay full. In this estimate, for a single filer in Pennsylvania with no local tax, no 401(k), and no health premium, take-home moves from about $660 to about $722. About $62 of the $80 shows up. The other $18 is tax. A $1 raise, from $20 to $21, is $40 more gross and about $31 more take-home on that same check.",
+      },
+      {
+        type: "h2",
+        text: "Why the whole raise is not taxed at one rate",
+      },
+      {
+        type: "p",
+        text: "Social Security is 6.2 percent of the extra wages, and Medicare is 1.45 percent, until a wage hits a limit the calculator already applies. Federal income tax takes a slice of the extra taxable dollars at the bracket those dollars fall in, not a slice of the whole paycheck. Pennsylvania’s wage tax in this estimate is a flat percent on top. None of those rates is a reason to skip a raise. They are the reason a budget should use the new take-home, not the new wage times the hours.",
+      },
+      {
+        type: "p",
+        text: "Type the old wage and the new wage into the calculator with the same hours, filing status, and state. The gap between the two take-home numbers is the raise you can spend. It is an estimate, not a pay stub and not tax advice. The [Internal Revenue Service](https://www.irs.gov) publishes the federal pieces this estimate is drawn from.",
+      },
+    ],
+  },
+  {
+    slug: "same-wage-four-pay-schedules",
+    title: "Same wage, four different checks",
+    description: "Weekly, every two weeks, twice a month, and monthly change the size of the check, not the year.",
+    date: "November 10, 2026",
+    blocks: [
+      {
+        type: "p",
+        text: "A job that pays $20 an hour does not produce one check size. It produces four, depending on how often you are paid. The year is the same if you work full time all year. The envelope is not.",
+      },
+      {
+        type: "h2",
+        text: "One wage, four gross checks",
+      },
+      {
+        type: "ul",
+        items: [
+          "Weekly: 40 hours, $800 gross. About 52 checks.",
+          "Every two weeks: 80 hours, $1,600 gross. About 26 checks.",
+          "Twice a month: 86.67 hours, about $1,733 gross. 24 checks.",
+          "Monthly: 173.33 hours, about $3,467 gross. 12 checks.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Those four gross amounts are the same job. Each one is about $41,600 for the year. A monthly check looks large because it is holding a month of pay. A weekly check looks small because it is holding a week. Comparing a friend’s monthly deposit with your weekly deposit, without multiplying by how often you are paid, is the usual mix-up.",
+      },
+      {
+        type: "h2",
+        text: "Take-home follows the check, not a new tax",
+      },
+      {
+        type: "p",
+        text: "The calculator annualizes whatever check you enter, then splits the year’s tax back onto that check. If the hours match the pay schedule, the yearly take-home barely moves. In this estimate, $20 an hour, single, Pennsylvania, no local tax and no deductions, each of those four schedules leaves about $34,330 for the year. One week of it is about $660. One month of it is about $2,861. Same year, different payday.",
+      },
+      {
+        type: "p",
+        text: "The estimate breaks when the hours do not match the schedule. Forty hours marked monthly is treated as a thin year. Eighty hours marked weekly is treated as constant overtime. Pick the schedule on the stub, then enter the hours on that one check. This is an estimate for planning, not a pay stub and not tax advice.",
+      },
+    ],
+  },
+  {
     slug: "a-second-job",
     title: "A second job",
     description: "Adding two take-home estimates makes the tax look too low. One combined check is closer.",
