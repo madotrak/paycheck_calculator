@@ -43,6 +43,7 @@
   --faint: #8b9094;
   --line: #d9dbdd;
   --accent: #2c3844;
+  --on-accent: #f4f6f7;
   --title: clamp(1.75rem, 1.3rem + 1.4vw, 2.25rem);
   --display: clamp(2.75rem, 1.8rem + 3vw, 4.25rem);
   --sans: "Source Sans 3", "Segoe UI", sans-serif;
@@ -58,6 +59,25 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark {
+  color-scheme: dark;
+  --paper: #141618;
+  --card: #1c1f22;
+  --inset: #2a2e32;
+  --ink: #f2f1ee;
+  --muted: #c2c6ca;
+  --faint: #9aa0a4;
+  --line: #3a3f44;
+  --accent: #d7dde3;
+  --on-accent: #141618;
+}
+
+html.dark .brand img,
+html.dark .lockup {
+  background: #f2f1ee;
+  border-radius: 0.75rem;
 }
 
 body {
@@ -679,6 +699,18 @@ legend {
   color: var(--ink);
 }
 
+.theme-toggle {
+  height: 2.75rem;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--card);
+  padding: 0 0.75rem;
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
 .page {
   width: 100%;
   max-width: 48rem;
@@ -794,7 +826,7 @@ legend {
   height: 2.75rem;
   border-radius: 0.5rem;
   background: var(--accent);
-  color: #f4f6f7;
+  color: var(--on-accent);
   font-size: 0.875rem;
   font-weight: 500;
 }

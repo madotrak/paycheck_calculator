@@ -28,6 +28,12 @@ export const Route = createRootRoute({
   component: () => (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{if(localStorage.getItem("takehome-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}})()',
+          }}
+        />
         <HeadContent />
       </head>
       <body>

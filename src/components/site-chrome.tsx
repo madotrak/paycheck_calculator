@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AdsenseBanner } from "@/components/adsense-banner";
 import type { Block } from "@/lib/site/content";
@@ -17,7 +18,7 @@ export function SiteNav() {
   return (
     <div className="flex flex-col gap-2">
       <Link to="/" className="inline-flex w-fit items-center">
-        <img src="/logo.png" alt="" className="h-10 w-auto" />
+        <img src="/logo.png" alt="" className="h-10 w-auto rounded-lg bg-white px-1" />
         <span className="sr-only">Takehome</span>
       </Link>
       <nav aria-label="Site" className="-mx-1 flex flex-wrap">
@@ -35,7 +36,35 @@ export function SiteNav() {
         </Link>
       ))}
       </nav>
+      <ThemeToggle />
     </div>
+  );
+}
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains("dark"));
+  }, []);
+
+  function toggle() {
+    const next = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("takehome-theme", next ? "dark" : "light");
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next ? "#141618" : "#f2f1ee");
+    setDark(next);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-pressed={dark}
+      className="h-11 self-start rounded-lg border border-line bg-card px-3 text-sm font-medium text-ink"
+    >
+      {dark ? "Light" : "Dark"}
+    </button>
   );
 }
 

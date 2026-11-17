@@ -40,6 +40,19 @@
     line-height: 1.5;
   }
 
+  html.dark {
+    color-scheme: dark;
+    --color-paper: #141618;
+    --color-card: #1c1f22;
+    --color-inset: #2a2e32;
+    --color-ink: #f2f1ee;
+    --color-muted: #c2c6ca;
+    --color-faint: #9aa0a4;
+    --color-line: #3a3f44;
+    --color-accent: #d7dde3;
+    --color-accent-fg: #141618;
+  }
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;

@@ -9,6 +9,13 @@
     <link rel="icon" href="favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("takehome-theme") === "dark") document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9069566302664336" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -31,6 +38,7 @@
           <a href="blog/index.html">Blog</a>
           <a href="faq.html">FAQ</a>
           <a href="contact.html">Contact</a>
+          <button type="button" class="theme-toggle" id="theme-toggle">Dark</button>
         </nav>
         <header class="page">
           <p class="eyebrow">Sources</p>
@@ -61,5 +69,27 @@
         </footer>
       </div>
     </main>
+    <script>
+      (function () {
+        var key = "takehome-theme";
+        var root = document.documentElement;
+        function apply(dark) {
+          root.classList.toggle("dark", dark);
+          var button = document.getElementById("theme-toggle");
+          if (!button) return;
+          button.textContent = dark ? "Light" : "Dark";
+          button.setAttribute("aria-pressed", dark ? "true" : "false");
+        }
+        var dark = root.classList.contains("dark");
+        apply(dark);
+        var button = document.getElementById("theme-toggle");
+        if (!button) return;
+        button.addEventListener("click", function () {
+          dark = !root.classList.contains("dark");
+          try { localStorage.setItem(key, dark ? "dark" : "light"); } catch (e) {}
+          apply(dark);
+        });
+      })();
+    </script>
   </body>
 </html>

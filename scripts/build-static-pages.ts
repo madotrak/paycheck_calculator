@@ -63,6 +63,7 @@ function page(options: {
       return `<a href="${href}"${current}>${label}</a>`;
     })
     .join("\n          ");
+  const theme = `<button type="button" class="theme-toggle" id="theme-toggle">Dark</button>`;
   const footer = ["About", "Government Sources", "Privacy", "FAQ", "Contact", "Blog"]
     .map((label) => {
       const href =
@@ -88,6 +89,13 @@ function page(options: {
     <link rel="icon" href="${depth}favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="${depth}apple-touch-icon.png" />
     <link rel="stylesheet" href="${depth}styles.css" />
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("takehome-theme") === "dark") document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9069566302664336" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -105,6 +113,7 @@ function page(options: {
         <a class="brand" href="${depth}index.html"><img src="${depth}logo.png" alt="Takehome" /></a>
         <nav class="site-nav" aria-label="Site">
           ${nav}
+          ${theme}
         </nav>
         ${options.body}
         <footer class="site-footer">
@@ -116,6 +125,28 @@ function page(options: {
         </footer>
       </div>
     </main>
+    <script>
+      (function () {
+        var key = "takehome-theme";
+        var root = document.documentElement;
+        function apply(dark) {
+          root.classList.toggle("dark", dark);
+          var button = document.getElementById("theme-toggle");
+          if (!button) return;
+          button.textContent = dark ? "Light" : "Dark";
+          button.setAttribute("aria-pressed", dark ? "true" : "false");
+        }
+        var dark = root.classList.contains("dark");
+        apply(dark);
+        var button = document.getElementById("theme-toggle");
+        if (!button) return;
+        button.addEventListener("click", function () {
+          dark = !root.classList.contains("dark");
+          try { localStorage.setItem(key, dark ? "dark" : "light"); } catch (e) {}
+          apply(dark);
+        });
+      })();
+    </script>
   </body>
 </html>
 `;
