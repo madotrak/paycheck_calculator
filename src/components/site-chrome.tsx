@@ -14,6 +14,22 @@ const LINKS = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.samadrobinson.paycheck";
+const SITE_URL = "https://paycheck.samadrobinson.com/";
+
+export function StoreLinks() {
+  return (
+    <div className="store-links">
+      <a className="play-badge" href={PLAY_URL} rel="noopener noreferrer" target="_blank">
+        <img src="/play-badge.png" alt="Get it on Google Play" />
+      </a>
+      <a className="app-home" href={SITE_URL}>
+        Open the website
+      </a>
+    </div>
+  );
+}
+
 export function SiteNav() {
   return (
     <div className="flex flex-col gap-2">
@@ -37,6 +53,7 @@ export function SiteNav() {
       ))}
       </nav>
       <ThemeToggle />
+      <StoreLinks />
     </div>
   );
 }

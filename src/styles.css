@@ -80,6 +80,55 @@
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
 }
 
+.takehome,
+.dock-pay {
+  font-weight: 700;
+  color: #1b7a43;
+}
+
+html.dark .takehome,
+html.dark .dock-pay {
+  color: #8fd6a4;
+}
+
+.store-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.play-badge {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.play-badge img {
+  height: 4rem;
+  width: auto;
+}
+
+.app-home {
+  display: none;
+}
+
+html.in-app .play-badge {
+  display: none;
+}
+
+html.in-app .app-home {
+  display: inline-flex;
+  align-items: center;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--color-accent);
+  padding: 0 0.9rem;
+  color: var(--color-accent-fg);
+  font-weight: 600;
+  text-decoration: none;
+}
+
 @media (min-width: 64rem) {
   .stub {
     position: sticky;

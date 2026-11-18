@@ -64,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
+            @Override
+            public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                view.evaluateJavascript("document.documentElement.classList.add('in-app')", null);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                view.evaluateJavascript("document.documentElement.classList.add('in-app')", null);
+            }
         });
         web.loadUrl("file:///android_asset/www/index.html");
 

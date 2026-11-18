@@ -406,8 +406,10 @@ export function PaycheckApp() {
 
         <p className="max-w-3xl text-sm text-faint">
           The estimate uses publicly available tax information and payroll guidelines for estimation purposes only. It annualizes this check
-          as if it repeats all year. State amounts for graduated-tax states are simplified, not official withholding tables. It skips tax
-          credits, itemizing, and local taxes unless you add a rate. Not tax, legal, or payroll advice.
+          as if it repeats all year. The 2026 qualified overtime deduction, the extra half of time-and-a-half, is included in the federal
+          income-tax line when the income limits allow it. Social Security, Medicare, and state tax still apply to that pay. A pay stub may
+          withhold more until the deduction is claimed on the return. State amounts for graduated-tax states are simplified, not official
+          withholding tables. It skips tax credits, itemizing, and local taxes unless you add a rate. Not tax, legal, or payroll advice.
         </p>
         <p className="max-w-3xl text-xs leading-5 text-muted">
           Disclaimer: Paycheck is an independent paycheck estimation tool and is not affiliated with, endorsed by, or operated by the
@@ -424,7 +426,7 @@ export function PaycheckApp() {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div>
             <p className="text-xs font-medium text-muted">Take-home {result.checkLabel}</p>
-            <p className="font-display text-2xl font-semibold tabular-nums tracking-tight">{formatMoney(result.takeHomePerCheck)}</p>
+            <p className="takehome font-display text-2xl font-bold tabular-nums tracking-tight">{formatMoney(result.takeHomePerCheck)}</p>
           </div>
           <p className="text-right text-sm text-muted tabular-nums">
             {formatMoney(result.grossPerCheck)}
@@ -447,7 +449,7 @@ function ResultPanel({ result }: { result: PayResult }) {
     >
       <div>
         <h2 className="text-sm font-medium text-muted">Take-home {result.checkLabel}</h2>
-        <p id="take-home" className="font-display text-display font-semibold leading-none tracking-tight tabular-nums" aria-live="polite">
+        <p id="take-home" className="takehome font-display text-display font-bold leading-none tracking-tight tabular-nums" aria-live="polite">
           {formatMoney(result.takeHomePerCheck)}
         </p>
         <p className="mt-1 max-w-prose text-sm text-muted">{summary}</p>

@@ -8,6 +8,7 @@ import {
   federalIncomeTax,
   federalMarginalRate,
   getState,
+  qualifiedOvertimeDeduction,
   stateIncomeTax,
   type FilingStatus,
 } from "./tax.ts";
@@ -167,9 +168,13 @@ export function calculatePaycheck(input: PaycheckInputs): PayResult {
   const ficaWages = Math.max(0, grossAnnual - healthAnnual);
   const fitWages = Math.max(0, ficaWages - retirementAnnual);
   const stateWages = state.retirementDeductible ? fitWages : ficaWages;
+  const flsaHalf = Math.min(0.5, Math.max(0, overtimeMultiplier - 1));
+  const qualifiedPremiumAnnual = cents(hourly * flsaHalf * overtimeHours * periods);
+  const overtimeDeductionAnnual = qualifiedOvertimeDeduction(qualifiedPremiumAnnual, fitWages, input.filing);
+  const federalWageBase = Math.max(0, fitWages - overtimeDeductionAnnual);
 
-  const federalAnnual = federalIncomeTax(fitWages, input.filing);
-  const marginal = federalMarginalRate(fitWages, input.filing);
+  const federalAnnual = federalIncomeTax(federalWageBase, input.filing);
+  const marginal = federalMarginalRate(federalWageBase, input.filing);
   const stateAnnual = stateIncomeTax(stateWages, input.filing, state, stateOverride);
   const localAnnual = grossAnnual * localRate;
   const socialSecurityAnnual = Math.min(ficaWages, SOCIAL_SECURITY_WAGE_BASE) * SOCIAL_SECURITY_RATE;
@@ -192,9 +197,15 @@ export function calculatePaycheck(input: PaycheckInputs): PayResult {
     postTaxAnnual;
   const takeHomeAnnual = cents(grossAnnual - deductionAnnual);
 
-  const taxableIncome = Math.max(0, fitWages - STANDARD_DEDUCTION[input.filing]);
+  const taxableIncome = Math.max(0, federalWageBase - STANDARD_DEDUCTION[input.filing]);
   const bracketLabel =
     taxableIncome <= 0 ? "Under the standard deduction" : `${formatRate(marginal, 0)} federal bracket`;
+  let federalDetail = bracketLabel;
+  if (overtimeDeductionAnnual > 0) {
+    federalDetail = `${bracketLabel} · overtime deduction ${formatMoney(overtimeDeductionAnnual)}`;
+  } else if (input.filing === "mfs" && qualifiedPremiumAnnual > 0) {
+    federalDetail = `${bracketLabel} · overtime deduction requires a joint return`;
+  }
 
   let stateSummary = "No tax on wages";
   if (stateOverride != null) stateSummary = `${formatRate(stateOverride)} flat rate you set`;
@@ -245,7 +256,7 @@ export function calculatePaycheck(input: PaycheckInputs): PayResult {
     row(
       "federal",
       "Federal income tax",
-      bracketLabel,
+      federalDetail,
       federalAnnual,
       periods,
       "tax",

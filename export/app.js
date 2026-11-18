@@ -7,13 +7,15 @@ var FEDERAL_BRACKETS = {
   single: [[0, 0.1], [12400, 0.12], [50400, 0.22], [105700, 0.24], [201775, 0.32], [256225, 0.35], [640600, 0.37]],
   mfs: [[0, 0.1], [12400, 0.12], [50400, 0.22], [105700, 0.24], [201775, 0.32], [256225, 0.35], [640600, 0.37]],
   mfj: [[0, 0.1], [24800, 0.12], [100800, 0.22], [211400, 0.24], [403550, 0.32], [512450, 0.35], [768700, 0.37]],
-  hoh: [[0, 0.1], [17700, 0.12], [67450, 0.22], [105700, 0.24], [201750, 0.32], [256225, 0.35], [640600, 0.37]],
+  hoh: [[0, 0.1], [17700, 0.12], [67450, 0.22], [105700, 0.24], [201750, 0.32], [256200, 0.35], [640600, 0.37]],
 };
 var SOCIAL_SECURITY_RATE = 0.062;
 var SOCIAL_SECURITY_WAGE_BASE = 184500;
 var MEDICARE_RATE = 0.0145;
 var ADDITIONAL_MEDICARE_RATE = 0.009;
 var ADDITIONAL_MEDICARE_THRESHOLD = { single: 200000, hoh: 200000, mfj: 250000, mfs: 125000 };
+var OVERTIME_DEDUCTION_CAP = { single: 12500, mfs: 12500, hoh: 12500, mfj: 25000 };
+var OVERTIME_DEDUCTION_PHASEOUT = { single: 150000, mfs: 150000, hoh: 150000, mfj: 300000 };
 
 var FREQUENCY = {
   weekly: { periods: 52, label: "Weekly", short: "Week", check: "this week", fullTimeHours: 40 },
@@ -186,6 +188,13 @@ function getState(id) {
   return STATE_BY_ID[id] || STATE_BY_ID.PA;
 }
 
+function qualifiedOvertimeDeduction(annualPremium, magi, filing) {
+  if (filing === "mfs") return 0;
+  var base = Math.min(OVERTIME_DEDUCTION_CAP[filing], Math.max(0, annualPremium));
+  var steps = Math.floor(Math.max(0, magi - OVERTIME_DEDUCTION_PHASEOUT[filing]) / 1000);
+  return Math.max(0, base - steps * 100);
+}
+
 function makeRow(id, label, detail, annual, periods, tone) {
   var annualCents = cents(annual);
   return { id: id, label: label, detail: detail, annual: annualCents, perCheck: cents(annualCents / periods), tone: tone };
@@ -213,8 +222,12 @@ function calculatePaycheck(input) {
   var ficaWages = Math.max(0, grossAnnual - healthAnnual);
   var fitWages = Math.max(0, ficaWages - retirementAnnual);
   var stateWages = state.retirementDeductible ? fitWages : ficaWages;
-  var federalAnnual = federalIncomeTax(fitWages, input.filing);
-  var marginal = federalMarginalRate(fitWages, input.filing);
+  var flsaHalf = Math.min(0.5, Math.max(0, overtimeMultiplier - 1));
+  var qualifiedPremiumAnnual = cents(hourly * flsaHalf * overtimeHours * periods);
+  var overtimeDeductionAnnual = qualifiedOvertimeDeduction(qualifiedPremiumAnnual, fitWages, input.filing);
+  var federalWageBase = Math.max(0, fitWages - overtimeDeductionAnnual);
+  var federalAnnual = federalIncomeTax(federalWageBase, input.filing);
+  var marginal = federalMarginalRate(federalWageBase, input.filing);
   var stateAnnual = stateIncomeTax(stateWages, input.filing, state, stateOverride);
   var localAnnual = grossAnnual * localRate;
   var socialSecurityAnnual = Math.min(ficaWages, SOCIAL_SECURITY_WAGE_BASE) * SOCIAL_SECURITY_RATE;
@@ -226,8 +239,11 @@ function calculatePaycheck(input) {
     retirementAnnual + healthAnnual + federalAnnual + stateAnnual + localAnnual +
     socialSecurityAnnual + medicareAnnual + additionalMedicareAnnual + extraFederalAnnual + postTaxAnnual;
   var takeHomeAnnual = cents(grossAnnual - deductionAnnual);
-  var taxableIncome = Math.max(0, fitWages - STANDARD_DEDUCTION[input.filing]);
+  var taxableIncome = Math.max(0, federalWageBase - STANDARD_DEDUCTION[input.filing]);
   var bracketLabel = taxableIncome <= 0 ? "Under the standard deduction" : formatRate(marginal, 0) + " federal bracket";
+  var federalDetail = bracketLabel;
+  if (overtimeDeductionAnnual > 0) federalDetail = bracketLabel + " · overtime deduction " + formatMoney(overtimeDeductionAnnual);
+  else if (input.filing === "mfs" && qualifiedPremiumAnnual > 0) federalDetail = bracketLabel + " · overtime deduction requires a joint return";
 
   var stateSummary = "No tax on wages";
   if (stateOverride != null) stateSummary = formatRate(stateOverride) + " flat rate you set";
@@ -247,7 +263,7 @@ function calculatePaycheck(input) {
   var rows = [makeRow("gross", "Gross pay", grossExplain, grossAnnual, periods, "gross")];
   if (retirementAnnual > 0) rows.push(makeRow("retirement", "401(k) deferral", formatRate(retirementRate) + " of gross · pre-tax", retirementAnnual, periods, "deduction"));
   if (healthAnnual > 0) rows.push(makeRow("health", "Health and pre-tax benefits", "Reduces income tax and FICA", healthAnnual, periods, "deduction"));
-  rows.push(makeRow("federal", "Federal income tax", bracketLabel, federalAnnual, periods, "tax"));
+  rows.push(makeRow("federal", "Federal income tax", federalDetail, federalAnnual, periods, "tax"));
   if (extraFederalAnnual > 0) rows.push(makeRow("extra-federal", "Extra federal withholding", "Added on top of the estimate", extraFederalAnnual, periods, "tax"));
   rows.push(makeRow("state", state.name + " income tax", stateDetail, stateAnnual, periods, "tax"));
   if (localAnnual > 0) rows.push(makeRow("local", "Local wage tax", formatRate(localRate) + " of gross wages", localAnnual, periods, "tax"));

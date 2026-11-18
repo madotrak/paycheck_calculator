@@ -182,7 +182,7 @@ export const posts: Post[] = [
   {
     slug: "overtime-on-a-paycheck",
     title: "How overtime changes a paycheck",
-    description: "Time-and-a-half raises the gross check, and it also raises the tax estimate.",
+    description: "Time-and-a-half raises the gross check. Federal tax may drop on the extra half.",
     date: "October 20, 2026",
     blocks: [
       {
@@ -196,6 +196,10 @@ export const posts: Post[] = [
       {
         type: "p",
         text: "Someone paid $20 an hour for 40 hours earns $800 gross. Ten more hours at time-and-a-half are 10 × $30, or $300. The check is $1,100 gross before anything is withheld. Because the estimate assumes that larger check repeats all year, the federal tax on an overtime-heavy week will look higher than the tax on a normal week.",
+      },
+      {
+        type: "p",
+        text: "For 2025 through 2028, the federal return can deduct the extra half of time-and-a-half, not the whole overtime check. The cap is $12,500 a year, or $25,000 on a joint return, and it shrinks after $150,000 of income ($300,000 joint). Takehome puts that deduction on the federal income-tax line when the limits allow it. Pay above time-and-a-half, such as double time, only counts the half that federal overtime law requires. Social Security, Medicare, and state tax still apply to the full overtime pay. Married filing separately cannot claim the deduction. A pay stub may still withhold federal tax on that premium until it is claimed on the return.",
       },
       {
         type: "h2",
@@ -330,7 +334,7 @@ export const faqs: { question: string; answer: string }[] = [
   {
     question: "What does the overtime rate mean?",
     answer:
-      "It is a multiplier on your hourly wage. 1.5 means time-and-a-half. Regular hours stay at your normal wage. Only the overtime hours use the multiplier.",
+      "It is a multiplier on your hourly wage. 1.5 means time-and-a-half. Regular hours stay at your normal wage. Only the overtime hours use the multiplier. The 2026 federal deduction, when it applies, uses only the extra half of time-and-a-half. It does not remove Social Security, Medicare, or state tax.",
   },
   {
     question: "Does a 401(k) lower every tax?",

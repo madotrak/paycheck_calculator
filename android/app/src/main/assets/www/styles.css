@@ -407,10 +407,11 @@ legend {
 .takehome {
   font-family: var(--display-font);
   font-size: var(--display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+  color: #1b7a43;
 }
 
 .summary,
@@ -581,9 +582,15 @@ legend {
 .dock-pay {
   font-family: var(--display-font);
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+  color: #1b7a43;
+}
+
+html.dark .takehome,
+html.dark .dock-pay {
+  color: #8fd6a4;
 }
 
 .dock-gross {
@@ -709,6 +716,45 @@ legend {
   color: var(--ink);
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.store-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.play-badge {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.play-badge img {
+  height: 4rem;
+  width: auto;
+}
+
+.app-home {
+  display: none;
+  align-items: center;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--accent);
+  padding: 0 0.9rem;
+  color: var(--accent-fg);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+html.in-app .play-badge {
+  display: none;
+}
+
+html.in-app .app-home {
+  display: inline-flex;
 }
 
 .page {

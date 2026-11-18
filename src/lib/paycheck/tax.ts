@@ -1,6 +1,9 @@
 /**
  * 2026 U.S. paycheck tax constants.
- * Federal brackets and standard deduction: IRS inflation adjustments for tax year 2026.
+ * Federal brackets match IRS Publication 15-T (2026) standard withholding
+ * schedules for a Form W-4 with Step 2 unchecked. The publication's $8,600
+ * adjustment ($12,900 if married filing jointly) plus its 0% band equals
+ * these standard deductions.
  * Social Security wage base: $184,500 (employee OASDI 6.2%).
  * State figures are simplified estimates from published 2026 rate ranges — not withholding tables.
  */
@@ -51,7 +54,7 @@ export const FEDERAL_BRACKETS: Record<FilingStatus, readonly Bracket[]> = {
     [67_450, 0.22],
     [105_700, 0.24],
     [201_750, 0.32],
-    [256_225, 0.35],
+    [256_200, 0.35],
     [640_600, 0.37],
   ],
 };
@@ -68,6 +71,34 @@ export const ADDITIONAL_MEDICARE_THRESHOLD: Record<FilingStatus, number> = {
   mfj: 250_000,
   mfs: 125_000,
 };
+
+/** Qualified overtime premium deduction under the 2026 law. The half of time-and-a-half only. */
+export const OVERTIME_DEDUCTION_CAP: Record<FilingStatus, number> = {
+  single: 12_500,
+  mfs: 12_500,
+  hoh: 12_500,
+  mfj: 25_000,
+};
+
+export const OVERTIME_DEDUCTION_PHASEOUT: Record<FilingStatus, number> = {
+  single: 150_000,
+  mfs: 150_000,
+  hoh: 150_000,
+  mfj: 300_000,
+};
+
+/**
+ * Deduction for the FLSA premium (the "half" in time-and-a-half) under IRC §225.
+ * Capped, then reduced by $100 for each full $1,000 of MAGI over the threshold.
+ * Married filing separately cannot claim it. It lowers federal income tax only.
+ * Social Security, Medicare, and this estimate's state tax still apply.
+ */
+export function qualifiedOvertimeDeduction(annualPremium: number, magi: number, filing: FilingStatus): number {
+  if (filing === "mfs") return 0;
+  const base = Math.min(OVERTIME_DEDUCTION_CAP[filing], Math.max(0, annualPremium));
+  const steps = Math.floor(Math.max(0, magi - OVERTIME_DEDUCTION_PHASEOUT[filing]) / 1_000);
+  return Math.max(0, base - steps * 100);
+}
 
 export type StateKind = "none" | "flat" | "graduated";
 

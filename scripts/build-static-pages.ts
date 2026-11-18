@@ -115,6 +115,10 @@ function page(options: {
           ${nav}
           ${theme}
         </nav>
+        <div class="store-links">
+          <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.samadrobinson.paycheck" rel="noopener noreferrer" target="_blank"><img src="${depth}play-badge.png" alt="Get it on Google Play" /></a>
+          <a class="app-home" href="https://paycheck.samadrobinson.com/">Open the website</a>
+        </div>
         ${options.body}
         <footer class="site-footer">
           <nav aria-label="Footer">
